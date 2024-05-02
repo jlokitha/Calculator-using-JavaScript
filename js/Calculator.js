@@ -3,7 +3,7 @@
  */
 
 const display = document.getElementById("display");
-const buttons = document.querySelectorAll(".button");
+const buttons = document.getElementsByClassName("button");
 const specialChars = ["+", "-", "*", "/", "%"];
 let output = "";
 
@@ -20,14 +20,14 @@ function calculate(value) {
   else if (value === "AC") output = "";
   else if (value === "C") output = output.toString().slice(0, -1);
   else {
-    if (output === "" && specialChars.includes(value)) return;
+    if (output === "" && specialChars.includes(value) && value !== "-") return;
     output += value;
   }
 
   display.value = output;
 }
 
-buttons.forEach((button) => {
+Array.from(buttons).forEach((button) => {
   button.addEventListener("click", (e) => calculate(e.target.dataset.value));
 });
 
@@ -45,7 +45,7 @@ toggler.addEventListener("change", function () {
   document.body.classList.toggle("white-theme-bg", isChecked);
   display.classList.toggle("white-theme-font", isChecked);
 
-  buttons.forEach((button) => {
+  Array.from(buttons).forEach((button) => {
     button.classList.toggle("white-theme-font", isChecked);
     button.classList.toggle("white-theme-button", isChecked);
   });
